@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مصنع الأحلام المقلوبة - Upside-Down Dream Factory</title>
+    <!-- استيراد خط عربي مبهج للأطفال -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1c4b, #43114d, #7b1fa2);
+            font-family: 'Cairo', sans-serif;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+        header {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            width: 100%;
+            border-bottom: 4px dashed #ffeb3b;
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #ffeb3b;
+            text-shadow: 2px 2px #e91e63;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 5px;
+            font-size: 1.1rem;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+        }
+        .order-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid #00bcd4;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .order-title {
+            font-size: 1.2rem;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+        .target-recipe {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: #ff4081;
+            padding: 10px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        .assembly-line {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+            min-height: 110px;
+            width: 100%;
+        }
+        .slot {
+            width: 100px;
+            height: 100px;
+            border: 3px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        .slot.filled {
+            border-style: solid;
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.2);
+        }
+        .parts-pool {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 20px;
+            width: 100%;
+        }
+        .part-item {
+            width: 75px;
+            height: 75px;
+            background: #ff9800;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .part-item:hover {
+            transform: scale(1.1);
+            background: #ff5722;
+        }
+        .btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.3rem;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 900;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        .message {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 10px;
+            min-height: 35px;
+            color: #ffeb3b;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🏭 مصنع الأحلام المقلوبة</h1>
+        <div class="stats">
+            <span>✨ الأحلام المصنوعة: <span id="score">0</span></span>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- طلب الحلم -->
+        <div class="order-box">
+            <div class="order-title">طلب حلم جديد من طفل نائم:</div>
+            <div class="target-recipe" id="targetRecipeText">جاري جلب الحلم...</div>
+        </div>
+
+        <!-- خط التركيب (المكان الذي يضع فيه الطفل القطع) -->
+        <div class="assembly-line" id="assemblyLine">
+            <div class="slot" data-index="0">❓</div>
+            <div class="slot" data-index="1">❓</div>
+            <div class="slot" data-index="2">❓</div>
+        </div>
+
+        <div class="message" id="message">اضغط على القطع المناسبة لتركيب الحلم!</div>
+
+        <!-- زر تسليم الحلم -->
+        <button class="btn" id="deliverBtn" onclick="checkDream()">✨ إرسال الحلم للنائم!</button>
+
+        <!-- قطع الألعاب المتاحة للدمج -->
+        <div class="parts-pool" id="partsPool">
+            <!-- سيتم تعبئتها ديناميكياً عبر الجافاسكريفت -->
+        </div>
+    </div>
+
+    <script>
+        // قائمة الأحلام المجنونة والمبتكرة
+        const dreamsList = [
+            { name: "قطة تطير بأجنحة شوكولاتة", needed: ["🐱", "🍫", "🪽"] },
+            { name: "سيارة تسير على غيوم وردية", needed: ["🚗", "☁️", "🍬"] },
+            { name: "سلحفاة صاروخية بالفضاء", needed: ["🐢", "🚀", "🌌"] },
+            { name: "شجرة تفاح تمطر نجوم", needed: ["🌳", "🍎", "⭐"] },
+            { name: "سمكة طائرة تلبس نظارة", needed: ["🐟", "🛩️", "👓"] }
+        ];
+
+        let currentDreamIndex = 0;
+        let currentRecipe = dreamsList[currentDreamIndex];
+        let playerSlots = [null, null, null];
+        let score = 0;
+
+        const targetRecipeText = document.getElementById("targetRecipeText");
+        const assemblyLine = document.getElementById("assemblyLine");
+        const partsPool = document.getElementById("partsPool");
+        const message = document.getElementById("message");
+        const scoreDisplay = document.getElementById("score");
+
+        function initGame() {
+            targetRecipeText.innerText = currentDreamIndex + 1 + ". " + currentRecipe.name;
+            playerSlots = [null, null, null];
+            renderSlots();
+            renderPool();
+            message.innerText = "اختر القطع الغريبة بالترتيب المناسب!";
+        }
+
+        // عرض خانات التركيب
+        function renderSlots() {
+            const slotsHtml = playerSlots.map((part, index) => {
+                return `<div class="slot ${part ? 'filled' : ''}" onclick="removePart(${index})">${part ? part : '❓'}</div>`;
+            }).join('');
+            assemblyLine.innerHTML = slotsHtml;
+        }
+
+        // خلط القطع عشوائياً في المسبح مع إضافة بعض القطع المشتتة لزيادة المرح
+        function renderPool() {
+            let poolParts = [...currentRecipe.needed, "🎈", "🎩", "🧸"];
+            // خلط العناصر عشوائياً
+            poolParts.sort(() => Math.random() - 0.5);
+
+            const poolHtml = poolParts.map(part => {
+                return `<div class="part-item" onclick="addPart('${part}')">${part}</div>`;
+            }).join('');
+            partsPool.innerHTML = poolHtml;
+        }
+
+        // إضافة قطعة إلى خانات التركيب الفارغة الأولى
+        function addPart(part) {
+            const emptyIndex = playerSlots.indexOf(null);
+            if (emptyIndex !== -1) {
+                playerSlots[emptyIndex] = part;
+                renderSlots();
+            }
+        }
+
+        // إزالة قطعة عند الضغط عليها من خانات التركيب
+        function removePart(index) {
+            if (playerSlots[index] !== null) {
+                playerSlots[index] = null;
+                renderSlots();
+            }
+        }
+
+        // التحقق من صحة الحلم المركب
+        function checkDream() {
+            if (playerSlots.includes(null)) {
+                message.innerText = "⚠️ مصنع الأحلام ناقص! املأ كل الخانات أولاً.";
+                return;
+            }
+
+            // مقارنة القطع التي وضعها الطفل بالوصفة المطلوبة
+            let isMatch = true;
+            for (let i = 0; i < 3; i++) {
+                if (playerSlots[i] !== currentRecipe.needed[i]) {
+                    isMatch = false;
+                    break;
+                }
+            }
+
+            if (isMatch) {
+                score++;
+                scoreDisplay.innerText = score;
+                message.innerText = "🎉 رائع جداً! نام الطفل بسعادة وحلم حلمك العجيب!";
+                
+                // الانتقال للحلم التالي بعد ثانيتين
+                setTimeout(() => {
+                    currentDreamIndex = (currentDreamIndex + 1) % dreamsList.length;
+                    currentRecipe = dreamsList[currentDreamIndex];
+                    initGame();
+                }, 2000);
+            } else {
+                message.innerText = "❌ أوه! خلطة غير متناسقة، جرب ترتيبها بشكل مقلوب أكثر!";
+            }
+        }
+
+        // بدء اللعبة لأول مرة
+        initGame();
+    </script>
+</body>
+</html>
