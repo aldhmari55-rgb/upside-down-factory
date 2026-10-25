@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>مصنع الأحلام المقلوبة - Upside-Down Dream Factory</title>
     <!-- استيراد خط عربي مبهج للأطفال -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
@@ -10,6 +10,7 @@
         * {
             box-sizing: border-box;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         body {
             margin: 0;
@@ -17,32 +18,33 @@
             background: linear-gradient(135deg, #1a1c4b, #43114d, #7b1fa2);
             font-family: 'Cairo', sans-serif;
             color: #fff;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            overflow: hidden;
+            overflow-x: hidden;
+            padding-bottom: 20px;
         }
         header {
             text-align: center;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.4);
             width: 100%;
             border-bottom: 4px dashed #ffeb3b;
         }
         h1 {
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #ffeb3b;
             text-shadow: 2px 2px #e91e63;
         }
         .stats {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
-            margin-top: 5px;
-            font-size: 1.1rem;
+            margin-top: 4px;
+            font-size: 1rem;
         }
         .container {
             flex: 1;
@@ -51,107 +53,112 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            max-width: 600px;
-            padding: 20px;
+            max-width: 480px;
+            padding: 15px;
             text-align: center;
         }
         .order-box {
             background: rgba(255, 255, 255, 0.1);
             border: 3px solid #00bcd4;
-            border-radius: 20px;
-            padding: 15px;
-            margin-bottom: 20px;
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 15px;
             width: 100%;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
         .order-title {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #00bcd4;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
         .target-recipe {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 900;
             background: #ff4081;
-            padding: 10px;
-            border-radius: 12px;
+            padding: 8px 12px;
+            border-radius: 10px;
             display: inline-block;
+            word-break: break-word;
         }
         .assembly-line {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
-            margin: 20px 0;
-            min-height: 110px;
+            margin: 15px 0;
             width: 100%;
         }
         .slot {
-            width: 100px;
-            height: 100px;
-            border: 3px dashed rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            background: rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-        .slot.filled {
-            border-style: solid;
-            border-color: #4caf50;
-            background: rgba(76, 175, 80, 0.2);
-        }
-        .parts-pool {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 20px;
-            width: 100%;
-        }
-        .part-item {
-            width: 75px;
-            height: 75px;
-            background: #ff9800;
-            border-radius: 15px;
+            width: 80px;
+            height: 80px;
+            border: 3px dashed rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.2rem;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s, background 0.2s;
+            background: rgba(0, 0, 0, 0.25);
+            transition: all 0.2s ease;
         }
-        .part-item:hover {
-            transform: scale(1.1);
+        .slot.filled {
+            border-style: solid;
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.3);
+            transform: scale(1.05);
+        }
+        .parts-pool {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px 10px;
+            border-radius: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .part-item {
+            width: 65px;
+            height: 65px;
+            background: #ff9800;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: transform 0.1s, background 0.2s;
+        }
+        .part-item:active {
+            transform: scale(0.9);
             background: #ff5722;
         }
         .btn {
             background: #4caf50;
             color: white;
             border: none;
-            padding: 12px 30px;
-            font-size: 1.3rem;
+            padding: 12px 25px;
+            font-size: 1.2rem;
             font-family: 'Cairo', sans-serif;
             font-weight: 900;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.5);
             margin-top: 15px;
-            transition: transform 0.2s;
+            width: 100%;
+            max-width: 300px;
+            transition: transform 0.1s;
         }
         .btn:active {
             transform: scale(0.95);
         }
         .message {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: bold;
             margin-top: 10px;
-            min-height: 35px;
+            min-height: 30px;
             color: #ffeb3b;
+            padding: 0 10px;
         }
     </style>
 </head>
@@ -171,7 +178,7 @@
             <div class="target-recipe" id="targetRecipeText">جاري جلب الحلم...</div>
         </div>
 
-        <!-- خط التركيب (المكان الذي يضع فيه الطفل القطع) -->
+        <!-- خط التركيب -->
         <div class="assembly-line" id="assemblyLine">
             <div class="slot" data-index="0">❓</div>
             <div class="slot" data-index="1">❓</div>
@@ -184,13 +191,73 @@
         <button class="btn" id="deliverBtn" onclick="checkDream()">✨ إرسال الحلم للنائم!</button>
 
         <!-- قطع الألعاب المتاحة للدمج -->
-        <div class="parts-pool" id="partsPool">
-            <!-- سيتم تعبئتها ديناميكياً عبر الجافاسكريفت -->
-        </div>
+        <div class="parts-pool" id="partsPool"></div>
     </div>
 
     <script>
-        // قائمة الأحلام المجنونة والمبتكرة
+        // نظام الصوت المدمج عبر المتصفح (Web Audio API) لتجنب مشاكل الملفات الخارجية
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // تشغيل نغمة نقر خفيفة عند اختيار قطعة
+        function playClickSound() {
+            initAudio();
+            if (!audioCtx) return;
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // تشغيل معزوفة نجاح تشجيعية (ألحان بهيجة) عند نجاح الحلم
+        function playSuccessSound() {
+            initAudio();
+            if (!audioCtx) return;
+            let notes = [523.25, 659.25, 783.99, 1046.50]; // نغمات Do, Mi, Sol, High Do
+            notes.forEach((freq, index) => {
+                let osc = audioCtx.createOscillator();
+                let gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + index * 0.12);
+                gain.gain.setValueAtTime(0.4, audioCtx.currentTime + index * 0.12);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + index * 0.12 + 0.3);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(audioCtx.currentTime + index * 0.12);
+                osc.stop(audioCtx.currentTime + index * 0.12 + 0.3);
+            });
+        }
+
+        // تشغيل صوت تنبيه خطأ لطيف
+        function playErrorSound() {
+            initAudio();
+            if (!audioCtx) return;
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(150, audioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        // قائمة الأحلام
         const dreamsList = [
             { name: "قطة تطير بأجنحة شوكولاتة", needed: ["🐱", "🍫", "🪽"] },
             { name: "سيارة تسير على غيوم وردية", needed: ["🚗", "☁️", "🍬"] },
@@ -211,14 +278,13 @@
         const scoreDisplay = document.getElementById("score");
 
         function initGame() {
-            targetRecipeText.innerText = currentDreamIndex + 1 + ". " + currentRecipe.name;
+            targetRecipeText.innerText = (currentDreamIndex + 1) + ". " + currentRecipe.name;
             playerSlots = [null, null, null];
             renderSlots();
             renderPool();
             message.innerText = "اختر القطع الغريبة بالترتيب المناسب!";
         }
 
-        // عرض خانات التركيب
         function renderSlots() {
             const slotsHtml = playerSlots.map((part, index) => {
                 return `<div class="slot ${part ? 'filled' : ''}" onclick="removePart(${index})">${part ? part : '❓'}</div>`;
@@ -226,10 +292,8 @@
             assemblyLine.innerHTML = slotsHtml;
         }
 
-        // خلط القطع عشوائياً في المسبح مع إضافة بعض القطع المشتتة لزيادة المرح
         function renderPool() {
             let poolParts = [...currentRecipe.needed, "🎈", "🎩", "🧸"];
-            // خلط العناصر عشوائياً
             poolParts.sort(() => Math.random() - 0.5);
 
             const poolHtml = poolParts.map(part => {
@@ -238,8 +302,8 @@
             partsPool.innerHTML = poolHtml;
         }
 
-        // إضافة قطعة إلى خانات التركيب الفارغة الأولى
         function addPart(part) {
+            playClickSound();
             const emptyIndex = playerSlots.indexOf(null);
             if (emptyIndex !== -1) {
                 playerSlots[emptyIndex] = part;
@@ -247,22 +311,21 @@
             }
         }
 
-        // إزالة قطعة عند الضغط عليها من خانات التركيب
         function removePart(index) {
             if (playerSlots[index] !== null) {
+                playClickSound();
                 playerSlots[index] = null;
                 renderSlots();
             }
         }
 
-        // التحقق من صحة الحلم المركب
         function checkDream() {
             if (playerSlots.includes(null)) {
+                playErrorSound();
                 message.innerText = "⚠️ مصنع الأحلام ناقص! املأ كل الخانات أولاً.";
                 return;
             }
 
-            // مقارنة القطع التي وضعها الطفل بالوصفة المطلوبة
             let isMatch = true;
             for (let i = 0; i < 3; i++) {
                 if (playerSlots[i] !== currentRecipe.needed[i]) {
@@ -274,20 +337,20 @@
             if (isMatch) {
                 score++;
                 scoreDisplay.innerText = score;
+                playSuccessSound();
                 message.innerText = "🎉 رائع جداً! نام الطفل بسعادة وحلم حلمك العجيب!";
                 
-                // الانتقال للحلم التالي بعد ثانيتين
                 setTimeout(() => {
                     currentDreamIndex = (currentDreamIndex + 1) % dreamsList.length;
                     currentRecipe = dreamsList[currentDreamIndex];
                     initGame();
-                }, 2000);
+                }, 2200);
             } else {
+                playErrorSound();
                 message.innerText = "❌ أوه! خلطة غير متناسقة، جرب ترتيبها بشكل مقلوب أكثر!";
             }
         }
 
-        // بدء اللعبة لأول مرة
         initGame();
     </script>
 </body>
